@@ -6,6 +6,8 @@ using TMPro;
 
 public class BonusGameSuitCase : MonoBehaviour
 {
+    [SerializeField] private SocketIOManager socketManager; 
+
     [SerializeField] private Button suitcase;
     [SerializeField] private Sprite empty_case;
     [SerializeField] private Sprite filled_case_cash;
@@ -20,6 +22,7 @@ public class BonusGameSuitCase : MonoBehaviour
 
     [SerializeField]
     internal bool isOpen;
+    internal int index;
 
     void Start()
     {
@@ -27,8 +30,9 @@ public class BonusGameSuitCase : MonoBehaviour
         if (suitcase) suitcase.onClick.AddListener(OpenCase);
     }
 
-    internal void ResetCase()
+    internal void ResetCase(int i)
     {
+        index = i;
         if (case_image_up) case_image_up.sprite = case_normal;
         isOpen = false;
         text.gameObject.SetActive(false);
@@ -38,7 +42,10 @@ public class BonusGameSuitCase : MonoBehaviour
     {
         if (isOpen)
             return;
+        if (_bonusManager.isAnimating)
+            return;
         _bonusManager.enableRayCastPanel(true);
+        _bonusManager.isAnimating = true;
         PopulateCase();
         imageAnimation.StartAnimation();
 
@@ -63,6 +70,8 @@ public class BonusGameSuitCase : MonoBehaviour
 
     IEnumerator setCase()
     {
+        socketManager.OnBonusCollect(index);
+        yield return new WaitUntil(() => socketManager.isResultdone);
         yield return new WaitUntil(() => !imageAnimation.isplaying);
         yield return new WaitForSeconds(0.3f);
         text.gameObject.SetActive(true);
@@ -80,6 +89,7 @@ public class BonusGameSuitCase : MonoBehaviour
             _bonusManager.PlayWinLooseSound(true);
             _bonusManager.enableRayCastPanel(false);
         }
+        _bonusManager.isAnimating = false;
     }
 
 }

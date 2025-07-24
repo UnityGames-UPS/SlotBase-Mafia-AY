@@ -8908,7 +8908,6 @@ GameObject:
   m_Component:
   - component: {fileID: 565016897}
   - component: {fileID: 565016895}
-  - component: {fileID: 565016896}
   m_Layer: 0
   m_Name: SocketManager
   m_TagString: Untagged
@@ -8930,22 +8929,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotManager: {fileID: 920668077}
   uIManager: {fileID: 172002248}
-  bonusdata: []
-  _jsManager: {fileID: 565016896}
   JSManager: {fileID: 912940355}
-  TestToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NjU1MTA1MGJjMDc4ODcyMWUxYmEwMSIsInVzZXJuYW1lIjoiZGV2MDEiLCJyb2xlIjoicGxheWVyIiwiaWF0IjoxNzQyODgxNDI3LCJleHAiOjE3NDM0ODYyMjd9.BwX7nEd_avZ_6YyGiiTiaUk9AUtAOrY2CGgRqdeO1vA
---- !u!114 &565016896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 565016894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93ebd9f5c201749cbbd9553f4b3a076a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  TestSocketURI: http://localhost:5000/
+  TestToken: 0138ee49756941f88e88568aa0e43009
 --- !u!4 &565016897
 Transform:
   m_ObjectHideFlags: 0
@@ -14558,9 +14544,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8ad04bde7cf004737aed643331c07026, type: 3}
   - {fileID: 21300000, guid: 7269bc7a04df748eb855f8c90f1243b7, type: 3}
   - {fileID: 21300000, guid: 87e5f772c0ac048a78b4650926e9a400, type: 3}
-  Balance_text: {fileID: 346314866}
+  balance_text: {fileID: 346314866}
   TotalBet_text: {fileID: 35253430}
-  Lines_Image: {fileID: 735421346}
+  lines_Image: {fileID: 0}
   TotalWin_text: {fileID: 629587101}
   BetPerLine_text: {fileID: 269886376}
   AutoSpin_Button: {fileID: 1153527271}
@@ -14573,7 +14559,7 @@ MonoBehaviour:
   BetMinus_button: {fileID: 90940650}
   StopSpin_Button: {fileID: 23735289}
   Turbo_Button: {fileID: 920143428}
-  Lines_num: 090000000100000002000000030000000400000005000000060000000700000008000000
+  lines_num: 
   Image_Prefab: {fileID: 595047196131445314, guid: 04c659a2f5ec249f5be006eb52752781, type: 3}
   ImageLetter_Prefab: {fileID: 595047196131445314, guid: e99d878739bb3448bb4b28b6ddfe8222, type: 3}
   PayCalculator: {fileID: 1690862655}

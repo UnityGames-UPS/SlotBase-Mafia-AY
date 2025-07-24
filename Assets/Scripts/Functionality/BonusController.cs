@@ -26,31 +26,25 @@ public class BonusController : MonoBehaviour
     int index = 0;
     internal double bet = 0;
     internal double totalWin = 0;
+    internal bool isAnimating = false;
 
     [SerializeField] private Transform BonusWinPopup;
     [SerializeField] private TMP_Text BonusWintext;
 
-    internal void GetSuitCaseList(List<int> values, double betperline)
+    internal void GetSuitCaseList()
     {
         index = 0;
         CaseValues.Clear();
         CaseValues.TrimExcess();
-        CaseValues = values;
-        bet = betperline;
+        
         totalWin = 0;
-        foreach (BonusGameSuitCase cases in BonusCases)
+        for (int i = 0; i < BonusCases.Count; i++)
         {
-            cases.ResetCase();
+            BonusCases[i].ResetCase(i);
         }
+        
 
-        for (int i = 0; i < CaseValues.Count; i++) 
-        {
-            if(CaseValues[i] == -1)
-            {
-                CaseValues.RemoveAt(i);
-                CaseValues.Add(-1);
-            }
-        }
+       
 
         if (raycastPanel) raycastPanel.SetActive(false);
         StartBonus();
