@@ -703,6 +703,10 @@ public class SlotBehaviour : MonoBehaviour
         {
             uiManager.PopulateWin(3, SocketManager.ResultData.payload.winAmount);
         }
+        else if (SocketManager.ResultData.scatter.amount>0)
+        {
+            uiManager.PopulateWin(3, SocketManager.ResultData.payload.winAmount);
+        }
         else
         {
             CheckPopups = false;
