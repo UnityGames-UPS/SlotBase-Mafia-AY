@@ -194,6 +194,7 @@ public class SocketIOManager : MonoBehaviour
         gameSocket.On<string>("internalError", OnSocketError);
         gameSocket.On<string>("pong", OnPongReceived); //Back2 Start
         gameSocket.On<string>("AnotherDevice", OnSocketOtherDevice); //BackendChanges Finish
+        gameSocket.On<Error>(SocketIOEventTypes.Error, OnError);
         // Start connecting to the server
         this.manager.Open();
     }
@@ -214,7 +215,13 @@ public class SocketIOManager : MonoBehaviour
         lastPongTime = Time.time;
         SendPing();
     } //Back2 end
-
+    private void OnError(Error err)
+    {
+        Debug.LogError("Socket Error Message : " + err);
+#if UNITY_WEBGL && !UNITY_EDITOR
+        JSManager.SendCustomMessage("error");
+#endif
+    }
     private void SendPing()
     {
         ResetPingRoutine();
