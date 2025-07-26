@@ -22,7 +22,7 @@ public class BonusGameSuitCase : MonoBehaviour
 
     [SerializeField]
     internal bool isOpen;
-    internal int index;
+    internal int index=0;
 
     void Start()
     {
@@ -46,7 +46,7 @@ public class BonusGameSuitCase : MonoBehaviour
             return;
         _bonusManager.enableRayCastPanel(true);
         _bonusManager.isAnimating = true;
-        PopulateCase();
+       
         imageAnimation.StartAnimation();
 
         StartCoroutine(setCase());
@@ -54,8 +54,9 @@ public class BonusGameSuitCase : MonoBehaviour
 
     void PopulateCase()
     {
-        int value = _bonusManager.GetValue();
-        if(value == 0)
+        double value = socketManager.bonusData.payload.payout;
+        
+        if (value == 0)
         {
             case_image_bttom.sprite = empty_case;
             text.text = "game over";
@@ -63,17 +64,21 @@ public class BonusGameSuitCase : MonoBehaviour
         else
         {
             case_image_bttom.sprite = filled_case_cash;
-            text.text = (_bonusManager.bet*value).ToString();
-            _bonusManager.totalWin += _bonusManager.bet * value;
+            text.text = socketManager.bonusData.payload.winAmount.ToString();
+            _bonusManager.totalWin += socketManager.bonusData.payload.winAmount;
         }
     }
 
     IEnumerator setCase()
     {
-        socketManager.OnBonusCollect(index);
-        yield return new WaitUntil(() => socketManager.isResultdone);
-        yield return new WaitUntil(() => !imageAnimation.isplaying);
+        
+       if(socketManager!=null) socketManager.OnBonusCollect(index);
+        if (socketManager != null) yield return new WaitUntil(() => socketManager.isResultdone);
+         yield return new WaitUntil(() => !imageAnimation.isplaying);
         yield return new WaitForSeconds(0.3f);
+
+        PopulateCase();
+
         text.gameObject.SetActive(true);
         text.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, text_color);
         isOpen = true;

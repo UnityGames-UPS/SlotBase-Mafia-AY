@@ -240,7 +240,7 @@ public class SocketIOManager : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log($"🟡 PingCheck | waitingForPong: {waitingForPong}, missedPongs: {missedPongs}, timeSinceLastPong: {Time.time - lastPongTime}");
+//            Debug.Log($"🟡 PingCheck | waitingForPong: {waitingForPong}, missedPongs: {missedPongs}, timeSinceLastPong: {Time.time - lastPongTime}");
 
             if (missedPongs == 0)
             {
@@ -479,11 +479,12 @@ public class SocketIOManager : MonoBehaviour
         message.payload = new SentDeta();
         message.type = "BONUS";
 
-        message.payload.betIndex = slotManager.BetCounter;
+      //  message.payload.betIndex = slotManager.BetCounter;
         message.payload.index = index;
         message.payload.Event = "tap";
         // Serialize message data to JSON
         string json = JsonUtility.ToJson(message);
+        Debug.Log(json);
         SendDataWithNamespace("request", json);
     }
 
