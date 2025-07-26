@@ -102,6 +102,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject DisconnectPopupObject;
     [SerializeField] private Button CloseDisconnect_Button;
 
+    [Header("reconection popup")]
+    [SerializeField] private GameObject ReconectingPopup_Object;
+    
+
     [Header("low balance popup")]
     [SerializeField] private Button Close_Button;
     [SerializeField] private GameObject LowBalancePopup_Object;
@@ -116,6 +120,7 @@ public class UIManager : MonoBehaviour
 
     private bool isMusic = true;
     private bool isSound = true;
+    [SerializeField] internal GameObject RaycastPanel;
 
     private void Awake()
     {
@@ -355,6 +360,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    internal void ReconnectionPopup()
+    {
+        OpenPopup(ReconectingPopup_Object);
+    }
+
     internal void LowBalPopup()
     {
 
@@ -501,6 +511,18 @@ public class UIManager : MonoBehaviour
             OpenPopup(DisconnectPopupObject);
         }
 
+    }
+    internal void CheckAndClosePopups()
+    {
+
+        if (ReconectingPopup_Object.activeInHierarchy)
+        {
+            ClosePopup(ReconectingPopup_Object);
+        }
+        if (DisconnectPopupObject.activeInHierarchy)
+        {
+            ClosePopup(DisconnectPopupObject);
+        }
     }
 
     private void CallOnExitFunction()
