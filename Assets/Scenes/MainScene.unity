@@ -9147,7 +9147,7 @@ MonoBehaviour:
   uIManager: {fileID: 172002248}
   JSManager: {fileID: 912940355}
   TestSocketURI: http://localhost:5000/
-  TestToken: b794fc408c074c1b91a7c23430d44be6
+  TestToken: f9aa817b82324de5a9bab0741a314a11
 --- !u!4 &565016897
 Transform:
   m_ObjectHideFlags: 0

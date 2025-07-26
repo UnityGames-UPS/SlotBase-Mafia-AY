@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class BonusGameSuitCase : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class BonusGameSuitCase : MonoBehaviour
     [SerializeField]
     internal bool isOpen;
     internal int index=0;
+
+    private Tween shakeTween;
 
     void Start()
     {
@@ -73,10 +76,11 @@ public class BonusGameSuitCase : MonoBehaviour
     {
         
        if(socketManager!=null) socketManager.OnBonusCollect(index);
+       
         if (socketManager != null) yield return new WaitUntil(() => socketManager.isResultdone);
          yield return new WaitUntil(() => !imageAnimation.isplaying);
         yield return new WaitForSeconds(0.3f);
-
+      
         PopulateCase();
 
         text.gameObject.SetActive(true);

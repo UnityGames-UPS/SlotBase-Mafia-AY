@@ -327,7 +327,7 @@ public class SlotBehaviour : MonoBehaviour
       
         currentbalance = SocketManager.PlayerData.balance;
         if (TotalBet_text) TotalBet_text.text = currentTotalBet.ToString();
-        if (TotalWin_text) TotalWin_text.text = "0.00";
+        if (TotalWin_text) TotalWin_text.text = "0.000";
         if (balance_text) balance_text.text = SocketManager.PlayerData.balance.ToString("f2");
         if (BetPerLine_text) BetPerLine_text.text = SocketManager.InitialData.bets[BetCounter].ToString();
         uiManager.InitialiseUIData(SocketManager.UIData.paylines);
@@ -529,7 +529,7 @@ public class SlotBehaviour : MonoBehaviour
             StopGameAnimation();
         }
         PayCalculator.ResetLines();
-        WinningsAnim(false);
+       
         TotalWin_text.transform.localScale = Vector3.one;
         tweenroutine = StartCoroutine(TweenRoutine());
     }
@@ -647,7 +647,7 @@ public class SlotBehaviour : MonoBehaviour
 
         yield return alltweens[^1].WaitForCompletion();
 
-        if (SocketManager.ResultData.payload.currentWinning > 0)
+        if (SocketManager.ResultData.payload.winAmount > 0)
         {
             SpinDelay = 2f;
         }
@@ -665,6 +665,8 @@ public class SlotBehaviour : MonoBehaviour
             }
             CheckPayoutLineBackend(winLine);
             //  if (m_Gamble_Button) m_Gamble_Button.interactable = true;
+            if (TotalWin_text) TotalWin_text.text = SocketManager.ResultData.payload.winAmount.ToString("f3");
+            Debug.Log(SocketManager.ResultData.payload.winAmount+"_______________________");
         }
         else
         {
@@ -712,13 +714,12 @@ public class SlotBehaviour : MonoBehaviour
             CheckPopups = false;
         }
 
-        if (TotalWin_text) TotalWin_text.text = SocketManager.ResultData.payload.currentWinning.ToString("f3");
+        if (TotalWin_text) TotalWin_text.text = SocketManager.ResultData.payload.winAmount.ToString("f3");
 
         ScoreTween?.Kill();
         if (balance_text) balance_text.text = SocketManager.PlayerData.balance.ToString("f3");
 
-        if (SocketManager.ResultData.payload.winAmount > 0)
-            WinningsAnim(true);
+        
 
         yield return new WaitUntil(() => !CheckPopups);
 
@@ -880,7 +881,7 @@ public class SlotBehaviour : MonoBehaviour
                     StartGameAnimation(Tempimages[columnIndex].slotImages[rowIndex].gameObject);
                 }
             }
-            WinningsAnim(true);
+           
         }
         else
         {
