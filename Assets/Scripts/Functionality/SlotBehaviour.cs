@@ -734,39 +734,10 @@ public class SlotBehaviour : MonoBehaviour
             IsSpinning = false;
         }
 
-        //if (SocketManager.ResultData.freeSpin.isFreeSpin)
-        //{
-        //    if (IsFreeSpin)
-        //    {
-        //        IsFreeSpin = false;
-        //        if (FreeSpinRoutine != null)
-        //        {
-        //            StopCoroutine(FreeSpinRoutine);
-        //            FreeSpinRoutine = null;
-        //        }
-        //    }
-        //    uiManager.setFreeSpinData((int)SocketManager.ResultData.freeSpin.count);
-        //    if (IsAutoSpin)
-        //    {
-        //        StopAutoSpin();
-        //        yield return new WaitForSeconds(0.1f);
-        //    }
-        //    yield return new WaitForSeconds(1.0f);
-        //    FreeSpin(FreeSpins);
-        //}
+        
     }
 
-    //internal void CheckBonusGame()
-    //{
-    //    if (SocketManager.ResultData.isBonus)
-    //    {
-    //        _bonusManager.GetSuitCaseList(SocketManager.ResultData.BonusResult);
-    //    }
-    //    else
-    //    {
-    //        CheckPopups = false;
-    //    }
-    //}
+   
     private void WinningsAnim(bool IsStart)
     {
         if (IsStart)
@@ -784,21 +755,16 @@ public class SlotBehaviour : MonoBehaviour
         if (currentbalance < currentTotalBet)
         {
             uiManager.LowBalPopup();
-            // if (AutoSpin_Button) AutoSpin_Button.interactable = false;
-            // if (SlotStart_Button) SlotStart_Button.interactable = false;
+           
         }
-        // else
-        // {
-        //     if (AutoSpin_Button) AutoSpin_Button.interactable = true;
-        //     if (SlotStart_Button) SlotStart_Button.interactable = true;
-        // }
+      
     }
 
     void ToggleButtonGrp(bool toggle)
     {
 
         if (SlotStart_Button) SlotStart_Button.interactable = toggle;
-        // if (lines_Button) lines_Button.interactable = toggle;
+        
         if (BetPlus_button) BetPlus_button.interactable = toggle;
         if (BetMinus_button) BetMinus_button.interactable = toggle;
         if (MaxBet_Button) MaxBet_Button.interactable = toggle;
@@ -883,6 +849,7 @@ public class SlotBehaviour : MonoBehaviour
         if (LineId.Count > 0)
         {
             
+                if (audioController) audioController.PlayWLAudio("win");
 
             for (int i = 0; i < LineId.Count; i++)
             {
@@ -892,7 +859,6 @@ public class SlotBehaviour : MonoBehaviour
 
             if (jackpot < 0)
             {
-                if (audioController) audioController.PlayWLAudio("win");
             }
             else
             {
