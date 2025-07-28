@@ -290,6 +290,27 @@ public class SocketIOManager : MonoBehaviour
         Debug.Log($"📦 Pong payload: {data}");
     } //Back2 end
 
+    internal IEnumerator CloseSocket() //Back2 Start
+    {
+        uIManager.RaycastPanel.SetActive(true);
+        ResetPingRoutine();
+
+        Debug.Log("Closing Socket");
+
+        manager?.Close();
+        manager = null;
+
+        Debug.Log("Waiting for socket to close");
+
+        yield return new WaitForSeconds(0.5f);
+
+        Debug.Log("Socket Closed");
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+    JSManager.SendCustomMessage("OnExit"); //Telling the react platform user wants to quit and go back to homepage
+#endif
+    } //Back2 end
+
     private void OnError(string response)
     {
         Debug.LogError("Error: " + response);
@@ -325,16 +346,7 @@ public class SocketIOManager : MonoBehaviour
         ParseResponse(data);
     }
 
-    internal void CloseSocket()
-    {
-        uIManager.RaycastPanel.SetActive(true);
-        SendDataWithNamespace("game:exit");
-#if UNITY_WEBGL && !UNITY_EDITOR
-        JSManager.SendCustomMessage("OnExit");
-#endif
-
-
-    }
+    
 
     internal void ReactNativeCallOnFailedToConnect() //BackendChanges
     {
