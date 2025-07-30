@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Slot-Mafia.sln"
+    "dotnet.defaultSolution": "SlotBase-Mafia-AY.sln"
 }

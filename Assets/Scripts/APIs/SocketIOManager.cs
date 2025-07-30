@@ -41,8 +41,8 @@ public class SocketIOManager : MonoBehaviour
     //private string SocketURI;
 
     protected string SocketURI = null;
-  //  protected string TestSocketURI = "https://game-crm-rtp-backend.onrender.com/";
-     [SerializeField]protected string TestSocketURI = "http://localhost:5001";
+    //  protected string TestSocketURI = "https://game-crm-rtp-backend.onrender.com/";
+    [SerializeField] protected string TestSocketURI = "http://localhost:5001";
 
     [SerializeField] private string TestToken;
     protected string gameID = "SL-MAF";
@@ -110,7 +110,7 @@ public class SocketIOManager : MonoBehaviour
             return new
             {
                 token = TestToken,
-                
+
             };
         };
         options.Auth = authFunction;
@@ -133,7 +133,7 @@ public class SocketIOManager : MonoBehaviour
             return new
             {
                 token = myAuth,
-     
+
             };
         };
         options.Auth = authFunction;
@@ -154,6 +154,11 @@ public class SocketIOManager : MonoBehaviour
         {
 
         }
+    }
+    void CloseGame()
+    {
+        Debug.Log("Unity: Closing Game");
+        StartCoroutine(CloseSocket());
     }
     private void OnSocketError(string data)
     {
@@ -240,7 +245,7 @@ public class SocketIOManager : MonoBehaviour
     {
         while (true)
         {
-//            Debug.Log($"🟡 PingCheck | waitingForPong: {waitingForPong}, missedPongs: {missedPongs}, timeSinceLastPong: {Time.time - lastPongTime}");
+            //            Debug.Log($"🟡 PingCheck | waitingForPong: {waitingForPong}, missedPongs: {missedPongs}, timeSinceLastPong: {Time.time - lastPongTime}");
 
             if (missedPongs == 0)
             {
@@ -346,7 +351,7 @@ public class SocketIOManager : MonoBehaviour
         ParseResponse(data);
     }
 
-    
+
 
     internal void ReactNativeCallOnFailedToConnect() //BackendChanges
     {
@@ -433,7 +438,7 @@ public class SocketIOManager : MonoBehaviour
                         Debug.Log("Dispose my Socket");
                         this.manager.Close();
                     }
-                   
+
 #if UNITY_WEBGL && !UNITY_EDITOR
                         JSManager.SendCustomMessage("onExit");
 #endif
@@ -445,7 +450,7 @@ public class SocketIOManager : MonoBehaviour
 
     private void RefreshUI()
     {
-        uIManager.InitialiseUIData( UIData.paylines);
+        uIManager.InitialiseUIData(UIData.paylines);
     }
 
     private void PopulateSlotSocket(List<string> slotPop)
@@ -491,7 +496,7 @@ public class SocketIOManager : MonoBehaviour
         message.payload = new SentDeta();
         message.type = "BONUS";
 
-      //  message.payload.betIndex = slotManager.BetCounter;
+        //  message.payload.betIndex = slotManager.BetCounter;
         message.payload.index = index;
         message.payload.Event = "tap";
         // Serialize message data to JSON
